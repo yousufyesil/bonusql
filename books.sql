@@ -1,53 +1,50 @@
 CREATE TABLE books(
-    title varchar(50) NOT NULL,
+    title varchar(150) NOT NULL,
     sites int NOT NULL,
-    author varchar(50) NOT NULL,
-    year int NOT NULL,
-    verlag varchar(50) NOT NULL,
+    author varchar(50),
+    author_id int,
+    year int,
+    verlag_id varchar(50),
     lang varchar(2) NOT NULL,
-    isbn varchar(13) NOT NULL,
-    udk varchar(10),
-    PRIMARY KEY (isbn,udk),
+    isbn int,
+    udk varchar(50),
+    sammelband boolean,
+    notes varchar(100),
+    BuchID varchar(50),
+    PRIMARY KEY (BuchID)
 
+);
+CREATE TABLE sammelband(
+    werk varchar(50),
+    BuchID varchar(50),
+    AutorID int
 );
 
 CREATE TABLE verlag(
-    name varchar(50) NOT NULL,
-    verlag_id int NOT NULL AUTO_INCREMENT,
-    FOREIGN KEY (verlag_id) REFERENCES books(isbn),
-    PRIMARY KEY (verlag_id),
+    name varchar(50),
+    BuchID varchar(50),
+    verlag_id int,
+    FOREIGN KEY (BuchID) REFERENCES books (BuchID)
+    PRIMARY KEY (verlag_id)
+
 );
 
 CREATE TABLE authors(
-    author_id int NOT NULL AUTO_INCREMENT,
-    first_name varchar(50) NOT NULL,
-    last_name varchar(50) NOT NULL,
-    FOREIGN KEY (author_id) REFERENCES books(isbn),
-    PRIMARY KEY (author_id),
+   author_id SERIAL,
+   name varchar(50),
 );
 
+-- Insert Books
 
-
--- Insert --
-
-INSERT INTO books(title, sites, author, year,verlag, lang, isbn, udk)
-VAlUES
-   -- Was wenn ein Verlag noch nicht existiert?
-    ('Star Wars - Erben des Imperiums', 590, 'Timothy Zahn', 2013,'Blanvalet','DE', '9783442269143', NULL),
-    ('Star Wars: Die Hohe Republik - In die Dunkelheit', 416, 'Claudia Gray',  2021,'Panini','DE', '9783736798847', NULL),
-    ('Star Wars: The High Republic: Into the Dark', 352, 'Timothy Zahn', 2021,'Disney Book Group','EN', '9781368062091', NULL),
-    ('Star Wars: Der Funke des Widerstands', 368, 'Justina Ireland', 2019,'Panini','DE', '9783736799134', NULL),
-    ('Star Wars: Spark of the Resistance', 224, 'Justina Ireland', 2019, 'Egmont', 'EN', '97814052-95420', NULL),
-
-INSERT INTO authors(first_name, last_name)
+INSERT INTO books(title, sites, author, year, verlag_id, lang, isbn, sammelband, notes, BuchID) 
 VALUES
-    ('Timothy', 'Zahn'),
-    ('Claudia', 'Gray'),
-    ('Justina', 'Ireland');
+('Wie klein ist klein?: Eine kurze Geschichte der Quanten', 368, 'Kenneth W Ford', 2008, 1, 'de', 9783550087158, false, 'Gebraucht', 'B0001'),
+('Aufzeichnungen eines vagabundierenden Bewusstseins: Band 1: Eine schicksalhafte Begegnung ',124,'Michael F.G. Syrjakow',2019,2,'de', 9783947867011, false, NULL, 'B0002')
 
-INSERT INTO verlag(name)
-VALUES
-    ('Blanvalet'),
-    ('Panini'),
-    ('Disney Book Group'),
-    ('Egmont');
+
+-- Insert Authors
+
+
+INSERT INTO author(name)
+VALUES('Kenneth W Ford'),
+('Michael F.G. Syrjakow')
