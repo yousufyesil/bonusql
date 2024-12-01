@@ -50,15 +50,53 @@ CREATE TABLE authors(
 
 -- Insert Books
 
-INSERT INTO books(title, sites, author, year, verlag_id, lang, isbn, sammelband, notes, BuchID) 
+
+
+INSERT INTO books (
+    title,
+    seiten,
+    author_id,
+    year,
+    verlag_id,
+    lang,
+    isbn,
+    sammelband_id,
+    notes,
+    zustand
+)
 VALUES
-('Wie klein ist klein?: Eine kurze Geschichte der Quanten', 368, 'Kenneth W Ford', 2008, 1, 'de', 9783550087158, false, 'Gebraucht', 'B0001'),
-('Aufzeichnungen eines vagabundierenden Bewusstseins: Band 1: Eine schicksalhafte Begegnung ',124,'Michael F.G. Syrjakow',2019,2,'de', 9783947867011, false, NULL, 'B0002')
-
-
+(
+    'Wie klein ist klein?: Eine kurze Geschichte der Quanten',
+    368,
+    1,                  -- author_id für Kenneth W Ford
+    2008,
+    1,                  -- verlag_id für Verlag XYZ
+    'de',
+    '9783550087158',
+    NULL,               -- Kein Sammelband
+    'Ein Meisterwerk',
+    'gut'               -- Zustand muss einem Wert aus ENUM entsprechen
+),
+(
+    'Aufzeichnungen eines vagabundierenden Bewusstseins: Band 1: Eine schicksalhafte Begegnung',
+    124,
+    2,                  -- author_id für Michael F.G. Syrjakow
+    2019,
+    2,                  -- verlag_id für Verlag ABC
+    'de',
+    '9783947867011',
+    NULL,               -- Kein Sammelband
+    NULL,
+    'sehr gut'          -- Zustand aus ENUM
+);
 -- Insert Authors
 
 
 INSERT INTO author(name)
 VALUES('Kenneth W Ford'),
 ('Michael F.G. Syrjakow')
+
+INSERT INTO verlag (name, verlagsort)
+VALUES
+('Verlag XYZ', 'Berlin'),
+('Verlag ABC', 'München');
