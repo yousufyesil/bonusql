@@ -1,37 +1,51 @@
-CREATE TABLE books(
-    title varchar(150) NOT NULL,
-    sites int NOT NULL,
-    author varchar(50),
-    author_id int,
-    year int,
-    verlag_id varchar(50),
-    lang varchar(2) NOT NULL,
-    isbn int,
-    udk varchar(50),
-    sammelband boolean,
-    notes varchar(100),
-    BuchID varchar(50),
-    PRIMARY KEY (BuchID)
+CREATE TYPE zustand AS ENUM ('sehr gut', 'gut','akzeptabel','stark gebraucht','defekt');
 
-);
+CREATE TABLE books(
+    BuchID SERIAL,
+    title varchar(150) NOT NULL,
+    seiten int NOT NULL,
+    -- author varchar(50),
+    author_id int,
+    verlag_id int,
+    year int,
+    lang varchar(2) NOT NULL,
+    isbn varchar(20),
+    herausgeber varchar(50),
+    serie varchar(50),
+    udk varchar(50),
+    sammelband_id int,
+    bandnr int,
+    umschlag varchar(100),
+    notes varchar(100),
+    zustand zustand,
+    FOREIGN KEY (verlag_id) REFERENCES verlag (verlag_id),
+    FOREIGN KEY (author_id) REFERENCES authors (author_id),
+    FOREIGN KEY (sammelband_id) REFERENCES sammelband (sammelband_id),
+    PRIMARY KEY (BuchID));
+
+
 CREATE TABLE sammelband(
-    werk varchar(50),
-    BuchID varchar(50),
-    AutorID int
+    sammelband_id SERIAL,
+    sammelband varchar(50),
+
+    --  Ich gehe davon aus, dass die Bandnr sich auf den Sammelband bezieht
+
+    PRIMARY KEY (sammelband_id)
 );
+
+
 
 CREATE TABLE verlag(
+    verlag_id SERIAL,
     name varchar(50),
-    BuchID varchar(50),
-    verlag_id int,
-    FOREIGN KEY (BuchID) REFERENCES books (BuchID)
+    verlagsort varchar(50),
     PRIMARY KEY (verlag_id)
 
 );
 
 CREATE TABLE authors(
-   author_id SERIAL,
-   name varchar(50),
+   author_id SERIAL PRIMARY KEY,
+   name varchar(50)
 );
 
 -- Insert Books
