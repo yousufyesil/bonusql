@@ -1,4 +1,22 @@
-CREATE TYPE zustand AS ENUM ('sehr gut', 'gut','akzeptabel','stark gebraucht','defekt');
+CREATE TYPE zustand AS ENUM ('sehr gut', 'gut','akzeptabel','stark gebraucht','defekt','N/A');
+
+CREATE TABLE author(
+   author_id SERIAL PRIMARY KEY,
+   name varchar(50));
+
+CREATE TABLE sammelband(
+    sammelband_id SERIAL,
+    sammelband varchar(50),
+
+    --  Ich gehe davon aus, dass die Bandnr sich auf den Sammelband bezieht
+
+    PRIMARY KEY (sammelband_id));
+
+CREATE TABLE verlag(
+    verlag_id SERIAL,
+    name varchar(50),
+    verlagsort varchar(50),
+    PRIMARY KEY (verlag_id));
 
 CREATE TABLE books(
     BuchID SERIAL,
@@ -19,38 +37,15 @@ CREATE TABLE books(
     notes varchar(100),
     zustand zustand,
     FOREIGN KEY (verlag_id) REFERENCES verlag (verlag_id),
-    FOREIGN KEY (author_id) REFERENCES authors (author_id),
+    FOREIGN KEY (author_id) REFERENCES author (author_id),
     FOREIGN KEY (sammelband_id) REFERENCES sammelband (sammelband_id),
     PRIMARY KEY (BuchID));
 
-
-CREATE TABLE sammelband(
-    sammelband_id SERIAL,
-    sammelband varchar(50),
-
-    --  Ich gehe davon aus, dass die Bandnr sich auf den Sammelband bezieht
-
-    PRIMARY KEY (sammelband_id)
-);
-
-
-
-CREATE TABLE verlag(
-    verlag_id SERIAL,
-    name varchar(50),
-    verlagsort varchar(50),
-    PRIMARY KEY (verlag_id)
-
-);
-
-CREATE TABLE authors(
-   author_id SERIAL PRIMARY KEY,
-   name varchar(50)
-);
-
+INSERT INTO verlag (name, verlagsort)
+VALUES
+('Verlag XYZ', 'Berlin'),
+('Verlag ABC', 'München');
 -- Insert Books
-
-
 
 INSERT INTO books (
     title,
@@ -76,27 +71,12 @@ VALUES
     NULL,               -- Kein Sammelband
     'Ein Meisterwerk',
     'gut'               -- Zustand muss einem Wert aus ENUM entsprechen
-),
-(
-    'Aufzeichnungen eines vagabundierenden Bewusstseins: Band 1: Eine schicksalhafte Begegnung',
-    124,
-    2,                  -- author_id für Michael F.G. Syrjakow
-    2019,
-    2,                  -- verlag_id für Verlag ABC
-    'de',
-    '9783947867011',
-    NULL,               -- Kein Sammelband
-    NULL,
-    'sehr gut'          -- Zustand aus ENUM
 );
+
 -- Insert Authors
 
 
 INSERT INTO author(name)
 VALUES('Kenneth W Ford'),
-('Michael F.G. Syrjakow')
+('Michael F.G. Syrjakow');
 
-INSERT INTO verlag (name, verlagsort)
-VALUES
-('Verlag XYZ', 'Berlin'),
-('Verlag ABC', 'München');
