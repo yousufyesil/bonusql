@@ -7,9 +7,15 @@
 CREATE TYPE item AS ENUM ('B', 'C');
 
 CREATE table regal(
+    room varchar(20),
     RegalID SERIAL PRIMARY KEY
+
 );
 CREATE table reihe(
+    RegalID int,
+    item_id int,
+    item_type item,
     FOREIGN KEY (RegalID) REFERENCES regal (RegalID),
-    item_type item
+    PRIMARY KEY(item_id,item_type)
+
 )
