@@ -25,4 +25,3 @@ def add_reihe():
         cursor.execute(f"INSERT INTO reihe (regalid, item_id, item_type) VALUES ({regal}, {item}, {type})")
     except psycopg2.errors.ForeignKeyViolation:
         print("Foreign Key verletzt. Prüfe ob alle Werte stimmen")
-addReihe()
