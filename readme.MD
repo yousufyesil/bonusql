@@ -23,8 +23,9 @@ verloren, da wir die ID als Varchar behandeln müssen, während wir ohne den Typ
 IDs anwenden können.
 
 
-| ItemType | B | C | D | O |
-|----------|---|---|---|---|
+```
+CREATE TYPE item AS ENUM ('B', 'C', 'D','O');
+```
 
 
 | Regal_ID | Item_ID | Item_Type | 
