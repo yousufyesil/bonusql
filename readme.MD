@@ -1,6 +1,13 @@
+## Bücher
+
+
+```
+Buch(Buch_ID, AuthorID, Genre, Release_Date, Length, Publisher, Type)
+Author(AuthorID, Name, Birthdate, Country)
+Verlag(PublisherID, Name, Country)
+Sammelband(Buch_ID, Title)
+```
 ## CD
-
-
 
 ```
 CD(CD_ID, ArtistID, TrackID, Genre, Release_Date, Length, Label, Type)
@@ -18,7 +25,7 @@ CD_Track(CD_ID, TrackID)
 
 ## DVD
 
-## Bücher
+
 
 
 
@@ -55,3 +62,13 @@ Items(Item_ID, Item_Type, Regal_ID)
 ```
 Ausleihen(Ausleih_ID, Item_ID, Item_Type, User_ID, Start_Date, End_Date)
 ```
+
+
+## Python Schnittstelle
+
+Zugriff auf die Dtenbank erfolgt mit psycopg2
+Funktionen um die Datenbank zu manipulieren
+addReihe()
+addRegal()
+
+
