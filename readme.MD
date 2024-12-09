@@ -34,3 +34,8 @@ Items(Item_ID, Item_Type, Regal_ID)
 ```
 
 
+## Ausleihen
+
+```
+Ausleihen(Ausleih_ID, Item_ID, Item_Type, User_ID, Start_Date, End_Date)
+```
