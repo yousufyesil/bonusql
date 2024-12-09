@@ -26,11 +26,11 @@ IDs anwenden können.
 ```
 CREATE TYPE item AS ENUM ('B', 'C', 'D','O');
 ```
+```
+Regal(Regal_ID, Room)
+```
+```
+Items(Item_ID, Item_Type, Regal_ID)
+```
 
-
-| Regal_ID | Item_ID | Item_Type | 
-|----------|---------|-----------|
-
-| Regal_ID |
-|----------|
 
