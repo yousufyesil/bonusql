@@ -1,5 +1,21 @@
 ## CD
 
+
+
+```
+CD(CD_ID, ArtistID, TrackID, Genre, Release_Date, Length, Label, Type)
+```
+```
+CD_Artist(ArtistID, Name, Birthdate, Country)
+```
+```
+Track(TrackID, Title, Length, Genre)
+```
+```
+CD_Track(CD_ID, TrackID)
+```
+
+
 ## DVD
 
 ## Bücher
