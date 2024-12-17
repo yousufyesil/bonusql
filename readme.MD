@@ -37,6 +37,13 @@ Type(DVD, BD, VHS)
 DVD(Disk_ID,Name, Release,Writer, Director IMDb_Reference,Type)
 ```
 
+### Umgang mit Medien anderen Typs
+Für Medien, welche sich nicht in die gegebenen Kategorien (Buch, Audio, Video) einordnen lassen, wäre eine eigene Relation eine Lösung diese zu katalogisieren. Die Hürde hierbei besteht allerdings, dass die Entitäten sich auf gemeinsame Attribute einigen müssen. Hierfür sollten diese möglichst allgemein gehalten werden, da wir nicht für jede Entität eine eigene Relation erschaffen können. Mein Vorschlag wäre folgende Implementierung 
+```
+Other(Title,Release,Author,Notes)
+```
+
+
 ### Tabellenstruktur
 
 Auf Grund der sich Teilweise überschneidenden Attribute, wäre es tatsächlich ein Gedanke wert, alle Relation _Disk_ anzulegen, welche CDs und DVDs sowie die dazugehörigen Medien vereinigt. Ich habe mich allerdings gegen dieses Design entschieden, mit der Begründung, dass sich CDs und DVDs in ihren Eigenschaften zu sehr unterscheiden, als das ich sie in eine gemeinsame Relation vereinen würde. Attribute wie _IMDb_Reference_ währen z.B nicht auf CDs anwendbar. Daher habe ich mich entscheiden Filmmedien und Tonmedien voneinander getrennt du behandeln.
@@ -57,14 +64,8 @@ einzelnen Entitäten den Typ einzupflegen. Diese Lösung wäre zwar durchaus val
 verloren, da wir die ID als Varchar behandeln müssen, während wir ohne den Type_Identifier arithmetische Methoden auf die 
 IDs anwenden können.
 
-### Umgang mit Medien anderen Typs
-Für Medien, welche sich nicht in die gegebenen Kategorien (Buch, Audio, Video) einordnen lassen, wäre eine eigene Relation eine Lösung diese zu katalogisieren. Die Hürde hierbei besteht allerdings, dass die Entitäten sich auf gemeinsame Attribute einigen müssen. Hierfür sollten diese möglichst allgemein gehalten werden, da wir nicht für jede Entität eine eigene Relation erschaffen können. Mein Vorschlag wäre folgende Implementierung 
-```
-Other(Title,Release,Author,Notes)
-```
 
 
-## Standort 
 ```
 CREATE TYPE item AS ENUM ('B', 'C', 'D','O');
 ```
