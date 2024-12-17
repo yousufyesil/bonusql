@@ -2,9 +2,9 @@
 
 
 ```
-Buch(Buch_ID, AuthorID, Genre, Release_Date, Length, Publisher, Type)
+Buch(Buch_ID, AuthorID, Genre, Serie, Release_Date, Length, Publisher, Type)
 Author(AuthorID, Name, Birthdate, Country)
-Verlag(PublisherID, Name, Country)
+Verlag(VerlagID, Name, City)
 Sammelband(Buch_ID, Title)
 ```
 ## CD
@@ -58,9 +58,11 @@ Items(Item_ID, Item_Type, Regal_ID)
 
 
 ## Ausleihen
-
 ```
-Ausleihen(Ausleih_ID, Item_ID, Item_Type, User_ID, Start_Date, End_Date)
+Person(Person_ID, name, tel, adress,birth_date)
+```
+```
+Ausleihen(Ausleih_ID, Item_ID, Item_Type, Person_ID, Start_Date, End_Date)
 ```
 
 
