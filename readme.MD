@@ -3,8 +3,11 @@
 
 ```
 Buch(Buch_ID, AuthorID, Genre, Serie, Release_Date, Length, Publisher, Type)
+```
 Author(AuthorID, Name, Birthdate, Country)
+```
 Verlag(VerlagID, Name, City)
+```
 Sammelband(Buch_ID, Title)
 ```
 ## CD
@@ -51,6 +54,11 @@ einzelnen Entitäten den Typ einzupflegen. Diese Lösung wäre zwar durchaus val
 verloren, da wir die ID als Varchar behandeln müssen, während wir ohne den Type_Identifier arithmetische Methoden auf die 
 IDs anwenden können.
 
+### Umgang mit Medien anderen Typs
+Für Medien, welche sich nicht in die gegebenen Kategorien (Buch, Audio, Video) einordnen lassen, wäre eine eigene Relation eine Lösung diese zu katalogisieren. Die Hürde hierbei besteht allerdings, dass die Entitäten sich auf gemeinsame Attribute einigen müssen. Hierfür sollten diese möglichst allgemein gehalten werden, da wir nicht für jede Entität eine eigene Relation erschaffen können. Mein Vorschlag wäre folgende Implementierung 
+```
+Other(Title,Release,Author,Notes)
+```
 
 ```
 CREATE TYPE item AS ENUM ('B', 'C', 'D','O');
