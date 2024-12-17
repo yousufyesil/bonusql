@@ -63,6 +63,8 @@ Für Medien, welche sich nicht in die gegebenen Kategorien (Buch, Audio, Video) 
 Other(Title,Release,Author,Notes)
 ```
 
+
+## Standort 
 ```
 CREATE TYPE item AS ENUM ('B', 'C', 'D','O');
 ```
