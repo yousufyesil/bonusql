@@ -24,10 +24,16 @@ CD_Track(CD_ID, TrackID)
 
 
 ## DVD
+```
+Type(DVD, BD, VHS)
+```
+```
+DVD(Disk_ID,Name, Release,Writer, Director IMDb_Reference,Type)
+```
 
+### Tabellenstruktur
 
-
-
+Auf Grund der sich Teilweise überschneidenden Attribute, wäre es tatsächlich ein Gedanke wert, alle Relation _Disk_ anzulegen, welche CDs und DVDs sowie die dazugehörigen Medien vereinigt. Ich habe mich allerdings gegen dieses Design entschieden, mit der Begründung, dass sich CDs und DVDs in ihren Eigenschaften zu sehr unterscheiden, als das ich sie in eine gemeinsame Relation vereinen würde. Attribute wie _IMDb_Reference_ währen z.B nicht auf CDs anwendbar. Daher habe ich mich entscheiden Filmmedien und Tonmedien voneinander getrennt du behandeln.
 
 ## Medienlokalisierung 
 In der Sammlung werden die Entitäten klassisch in Regalen aufbewahrt. Um ein Medium in diesem System zu finden,
