@@ -18,7 +18,7 @@ Sammelband(Buch_ID, Title)
 CD(CD_ID, ArtistID, TrackID, Genre, Release_Date, Length, Label, Type)
 ```
 ```
-Track(TrackID, ArtistID, Titel, Untertitel, Katalognummer)
+Track(TrackID, ArtistID, MusikstückID, Titel, Untertitel, Katalognummer)
 ```
 ```
 CD_Track(CD_ID, TrackID)
@@ -40,8 +40,21 @@ Für Medien, welche sich nicht in die gegebenen Kategorien (Buch, Audio, Video) 
 Other(Title,Release,Author,Notes)
 ```
 ## Musikstücke
+
 ```
-Musikstück(Titel, ArtistID, Untertitel, Herrausgeber, Katalognummer)
+Musikstueck(Musikstueck_ID, Artist_ID_Komponist, Titel, Untertitel, Tonart, Opus, Katalognummer)
+```
+```
+Notenband(Titel, ArtistID, Untertitel, Herrausgeber, Katalognummer)
+```
+```
+Notenband_Musikstueck(Notenband_ID, Musikstueck_ID, Position)
+```
+```
+Satz(Satz_ID, Musikstueck_ID, Position, Bezeichnung, Tempo)
+```
+```
+Interpretation(Interpretation_ID, Musikstueck_ID, Artist_ID_Dirigent, Artist_ID_Orchester, Aufnahmedatum)
 ```
 
 ### Tabellenstruktur
