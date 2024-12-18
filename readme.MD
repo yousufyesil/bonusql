@@ -1,11 +1,10 @@
+## Artist
+```
+Artist(Artist, Name, Birthdate, Country)
+```
 ## Bücher
-
-
 ```
 Buch(Buch_ID, AuthorID, Genre, Serie, Release_Date, Length, Publisher, Type)
-```
-```
-Author(AuthorID, Name, Birthdate, Country)
 ```
 ```
 Verlag(VerlagID, Name, City)
