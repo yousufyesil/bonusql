@@ -13,7 +13,7 @@ Verlag(VerlagID, Name, City)
 ```
 Sammelband(Buch_ID, Title)
 ```
-## CD
+## Audio_Disk
 
 ```
 CD(CD_ID, ArtistID, TrackID, Genre, Release_Date, Length, Label, Type)
@@ -29,7 +29,7 @@ CD_Track(CD_ID, TrackID)
 ```
 
 
-## DVD
+## Video_Disk
 ```
 Type(DVD, BD, VHS)
 ```
@@ -42,7 +42,10 @@ Für Medien, welche sich nicht in die gegebenen Kategorien (Buch, Audio, Video) 
 ```
 Other(Title,Release,Author,Notes)
 ```
-
+## Musikstücke
+```
+Musikstück(Titel, Komponist, Untertitel, Herrausgeber, Katalognummer)
+```
 
 ### Tabellenstruktur
 
