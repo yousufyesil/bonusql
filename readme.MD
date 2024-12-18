@@ -18,9 +18,6 @@ Sammelband(Buch_ID, Title)
 CD(CD_ID, ArtistID, TrackID, Genre, Release_Date, Length, Label, Type)
 ```
 ```
-CD_Artist(ArtistID, Name, Birthdate, Country)
-```
-```
 Track(TrackID, Title, Length, Genre)
 ```
 ```
@@ -33,7 +30,7 @@ CD_Track(CD_ID, TrackID)
 Type(DVD, BD, VHS)
 ```
 ```
-DVD(Disk_ID,Name, Release,Writer, Director IMDb_Reference,Type)
+DVD(Disk_ID,Name, ArtistID, Director IMDb_Reference,Type)
 ```
 
 ### Umgang mit Medien anderen Typs
