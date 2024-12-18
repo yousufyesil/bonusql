@@ -18,11 +18,12 @@ Sammelband(Buch_ID, Title)
 CD(CD_ID, ArtistID, TrackID, Genre, Release_Date, Length, Label, Type)
 ```
 ```
-Track(TrackID, ArtistID, Title, Length, Genre)
+Track(TrackID, ArtistID, Titel, Untertitel, Katalognummer)
 ```
 ```
 CD_Track(CD_ID, TrackID)
 ```
+
 
 
 ## Video_Disk
