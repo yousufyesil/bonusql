@@ -40,7 +40,7 @@ Other(Title,Release,Author,Notes)
 ```
 ## Musikstücke
 ```
-Musikstück(Titel, Komponist, Untertitel, Herrausgeber, Katalognummer)
+Musikstück(Titel, ArtistID, Untertitel, Herrausgeber, Katalognummer)
 ```
 
 ### Tabellenstruktur
