@@ -77,8 +77,8 @@ CREATE TABLE autor (
     PRIMARY KEY (person_id)
 );
 CREATE TABLE book_authors (
-    book_id INTEGER REFERENCES buch(BuchID),
-    author_id INTEGER REFERENCES autor(author_id),
+    book_id INTEGER REFERENCES buch(medium_id),
+    author_id INTEGER REFERENCES autor(person_id) ,
     PRIMARY KEY (book_id, author_id)  -- Ein Autor kann nur einmal pro Buch vorkommen
 );
 
