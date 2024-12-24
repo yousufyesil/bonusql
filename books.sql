@@ -1,3 +1,4 @@
+SET client_encoding = 'UTF8';
 CREATE TYPE zustand AS ENUM ('sehr gut', 'gut','akzeptabel','stark gebraucht','defekt','N/A');
 
 CREATE TABLE author(
