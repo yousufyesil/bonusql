@@ -2,7 +2,7 @@
 
 
 ```
-Buch(Buch_ID, Title, Seiten,Author_ID, Genre, Release_Date, Length, Publisher, Type)
+Buch(Buch_ID, AuthorID, Genre, Release_Date, Length, Publisher, Type)
 Author(AuthorID, Name, Birthdate, Country)
 Verlag(PublisherID, Name, Country)
 Sammelband(Buch_ID, Title)
