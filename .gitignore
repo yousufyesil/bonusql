@@ -2,4 +2,4 @@ Bottle/connect.py
 *.xml
 *iml
 .$Book_ERD.drawio.bkp
-.idea
+./idea
