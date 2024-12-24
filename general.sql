@@ -71,16 +71,17 @@ CREATE TABLE buch (
 INSERT INTO buch (medium_id, isbn, seiten, sprache, verlag_id) VALUES
     (1, '9783150000001', 88, 'de', 1);
 
-CREATE TABLE buch_autor (
-    medium_id INTEGER,
+CREATE TABLE autor (
     person_id INTEGER REFERENCES person(person_id),
     rolle VARCHAR(50) DEFAULT 'Autor',
-    PRIMARY KEY (medium_id, person_id),
-    FOREIGN KEY (medium_id) REFERENCES buch(medium_id)
+    PRIMARY KEY (person_id)
+);
+CREATE TABLE book_authors (
+    book_id INTEGER REFERENCES buch(BuchID),
+    author_id INTEGER REFERENCES autor(author_id),
+    PRIMARY KEY (book_id, author_id)  -- Ein Autor kann nur einmal pro Buch vorkommen
 );
 
-INSERT INTO buch_autor (medium_id, person_id) VALUES
-    (1, 1);
 
 CREATE TABLE sammelband (
     sammelband_id SERIAL PRIMARY KEY,
