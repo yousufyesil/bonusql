@@ -16,6 +16,6 @@ CREATE TABLE track(
 CREATE TABLE at(
     FOREIGN KEY (ArtistID) REFERENCES artist (ArtistID),
     FOREIGN KEY (TrackID) REFERENCES track (TrackID)
-)
+);
 
 

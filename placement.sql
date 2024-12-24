@@ -4,7 +4,7 @@
   zu den lokalen IDs ermöglicht.
   */
 
-CREATE TYPE item AS ENUM ('B', 'C', 'D','O');
+CREATE TYPE item AS ENUM ('B', 'C', 'D','O','N');
 
 CREATE table regal(
     room varchar(20),

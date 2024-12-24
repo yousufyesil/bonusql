@@ -1,9 +1,10 @@
 CREATE TYPE item AS ENUM ('B', 'C', 'D','O');
+CREATE TYPE zustand AS ENUM ('sehr gut', 'gut','akzeptabel','stark gebraucht','defekt','N/A');
+
 
 CREATE TABLE regal (
     RegalID SERIAL PRIMARY KEY
 );
-
 CREATE TABLE reihe (
     RegalID INT NOT NULL,
     item_id INT,
@@ -18,14 +19,26 @@ CREATE TABLE person(
     address varchar(50),
     city varchar(20)
 );
+
+
+
+-- Transaktion hinzufügen
 CREATE TABLE ausleihen(
     leih_id SERIAL PRIMARY KEY,
     item_id int,
     item_type item,
     outgoing date,
     incoming date,
-    person_id int
+    person_id int,
+    anmerkung varchar(100)
 );
+
+
+
+
+
+
+
 
 
 INSERT INTO regal DEFAULT VALUES;
