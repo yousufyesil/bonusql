@@ -1,0 +1,258 @@
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --background-color: #f8fafc;
+    --card-background: #ffffff;
+    --text-color: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --hover-color: #f1f5f9;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.navbar {
+    background: white !important;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 0;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-color) !important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navbar-nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-link {
+    color: var(--text-muted) !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+.nav-link:hover {
+    background-color: var(--hover-color);
+    color: var(--text-color) !important;
+}
+
+.nav-link.active {
+    background-color: var(--hover-color);
+    color: var(--primary-color) !important;
+}
+
+.search-card {
+    background: var(--card-background);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.form-control {
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
+    font-size: 0.95rem;
+    background-color: var(--background-color);
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.form-select {
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 0.625rem 2.5rem 0.625rem 1rem;
+    font-size: 0.95rem;
+    background-color: var(--background-color);
+}
+
+.table {
+    margin: 0;
+    background: var(--card-background);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.table th {
+    background-color: var(--background-color);
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.badge {
+    padding: 0.35em 0.65em;
+    font-size: 0.875em;
+    font-weight: 500;
+    border-radius: 0.375rem;
+}
+
+.badge.bg-success {
+    background-color: #059669 !important;
+}
+
+.badge.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.badge.bg-danger {
+    background-color: #dc2626 !important;
+}
+
+/* Media Types */
+.badge-media {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+}
+
+.badge-media.Buch {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.badge-media.DVD {
+    background-color: #8b5cf6;
+    color: white;
+}
+
+.badge-media.CD {
+    background-color: #ec4899;
+    color: white;
+}
+
+.badge-media.Noten {
+    background-color: #14b8a6;
+    color: white;
+}
+
+.badge-media.Digital {
+    background-color: #64748b;
+    color: white;
+}
+
+/* Status badges */
+.badge-status {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+}
+
+.badge-status.gut {
+    background-color: #0ea5e9;
+    color: white;
+}
+
+.badge-status.sehr-gut {
+    background-color: #059669;
+    color: white;
+}
+
+.badge-status.NA {
+    background-color: #64748b;
+    color: white;
+}
+
+/* Loading spinner */
+.spinner {
+    width: 40px;
+    height: 40px;
+    margin: 2rem auto;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+/* Empfohlene Queries */
+.recommended-query {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+.recommended-query:hover {
+    background-color: var(--bs-primary);
+    color: white;
+    border-color: var(--bs-primary);
+}
+
+.recommended-query i {
+    font-size: 1rem;
+}
+
+/* SQL Editor Styles */
+#sqlEditor {
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    padding: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    .nav-link {
+        font-size: 0.875rem;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.625rem 0.75rem;
+    }
+}

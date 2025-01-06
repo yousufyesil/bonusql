@@ -1,9 +1,6 @@
 SET client_encoding = 'UTF8';
-<<<<<<< Updated upstream
 
 -- 1) ENUM-Typen
-=======
->>>>>>> Stashed changes
 CREATE TYPE medientyp AS ENUM ('Buch', 'CD', 'DVD', 'Noten', 'Sonstiges');
 CREATE TYPE datentraeger AS ENUM ('VHS', 'DVD', 'BD', 'CD', 'Vinyl', 'Kassette', 'SACD', 'HiRes', 'Digital', 'Hardcover', 'Taschenbuch', 'Gebunden');
 CREATE TYPE zustand AS ENUM ('sehr gut', 'gut', 'akzeptabel', 'stark gebraucht', 'defekt', 'N/A');
@@ -23,12 +20,8 @@ INSERT INTO person (vorname, nachname, geburtstag, notizen) VALUES
     ('Agatha', 'Christie', '1890-09-15', 'Krimi-Autorin'),
     ('Frédéric', 'Chopin', '1810-03-01', 'Komponist'),
     ('Wolfgang Amadeus', 'Mozart', '1756-01-27', 'Komponist'),
-<<<<<<< Updated upstream
     ('Christopher', 'Nolan', '1970-07-30', 'Filmregisseur'),
     ('Max', 'Mustermann', NULL, NULL);
-=======
-    ('Christopher', 'Nolan', '1970-07-30', 'Filmregisseur');
->>>>>>> Stashed changes
 
 -- 3) VERLAG
 CREATE TABLE verlag (
@@ -53,13 +46,8 @@ CREATE TABLE medium (
     zustand zustand DEFAULT 'N/A',
     barcode VARCHAR(50) UNIQUE,
     notizen TEXT,
-<<<<<<< Updated upstream
     PRIMARY KEY (medium_id, medientyp)
     -- optional: CONSTRAINT valid_year CHECK (erscheinungsjahr > 1400 AND erscheinungsjahr <= EXTRACT(YEAR FROM CURRENT_DATE))
-=======
-    PRIMARY KEY (medium_id, medientyp),
-    CONSTRAINT valid_year CHECK (erscheinungsjahr > 1400 AND erscheinungsjahr <= EXTRACT(YEAR FROM CURRENT_DATE))
->>>>>>> Stashed changes
 );
 
 INSERT INTO medium (medientyp, titel, erscheinungsjahr, datentraeger, zustand, barcode) VALUES
@@ -95,24 +83,10 @@ CREATE TABLE buch (
 
 -- Anpassen der Sprache auf 2 Zeichen:
 INSERT INTO buch (medium_id, isbn, seiten, sprache, verlag_id) VALUES
-    (1, '9783150000001', 88, 'de', 1);
+    (1, '9783150000001', 88, 'de', 1),
+    (4, '1234567890', 200, 'de', NULL);
 
-<<<<<<< Updated upstream
 -- 6) SAMMELBAND
-=======
-CREATE TABLE autor (
-    person_id INTEGER REFERENCES person(person_id),
-    rolle VARCHAR(50) DEFAULT 'Autor',
-    PRIMARY KEY (person_id)
-);
-CREATE TABLE book_authors (
-    book_id INTEGER REFERENCES buch(medium_id),
-    author_id INTEGER REFERENCES autor(person_id) ,
-    PRIMARY KEY (book_id, author_id)  -- Ein Autor kann nur einmal pro Buch vorkommen
-);
-
-
->>>>>>> Stashed changes
 CREATE TABLE sammelband (
     sammelband_id SERIAL PRIMARY KEY,
     titel VARCHAR(200) NOT NULL
@@ -189,14 +163,10 @@ CREATE TABLE track (
     ensemble VARCHAR(200),
     notizen TEXT,
     UNIQUE(medium_id, tracknummer),
-<<<<<<< Updated upstream
     CONSTRAINT werk_oder_satz CHECK (
         (werk_id IS NOT NULL AND satz_id IS NULL)
         OR (werk_id IS NULL AND satz_id IS NOT NULL)
     )
-=======
-    CONSTRAINT werk_oder_satz CHECK ((werk_id IS NOT NULL AND satz_id IS NULL) OR (werk_id IS NULL AND satz_id IS NOT NULL))
->>>>>>> Stashed changes
 );
 
 INSERT INTO track (medium_id, werk_id, tracknummer, dauer) VALUES
@@ -324,7 +294,6 @@ SELECT
 FROM medium m
 JOIN standort s ON m.medium_id = s.medium_id AND m.medientyp = s.medientyp
 JOIN regal r ON s.regal_id = r.regal_id
-<<<<<<< Updated upstream
 JOIN raum ra ON r.raum_id = ra.raum_id;
 
 --------------------------------------------------------
@@ -386,6 +355,3 @@ INSERT INTO musikwerk_person_role (werk_id, person_id, role_id)
 SELECT 1, 3, role_id
 FROM role
 WHERE role_name = 'Komponist';
-=======
-JOIN raum ra ON r.raum_id = ra.raum_id;
->>>>>>> Stashed changes
