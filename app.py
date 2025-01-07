@@ -3,14 +3,34 @@
 import os
 from bottle import route, run, template, request, static_file, response
 import psycopg2
+from psycopg2 import pool
 import json
 import datetime
 import decimal
 
-# PostgreSQL Verbindung
+# Initialisiere den Connection Pool
+try:
+    connection_pool = psycopg2.pool.SimpleConnectionPool(
+        minconn=1,
+        maxconn=10,
+        host="awsbase.cw6qjfqpxzus.us-east-1.rds.amazonaws.com",
+        database="postgres",
+        user="postgres",
+        password="postgres",
+        port="5432",
+        sslmode="require",
+        options="-c search_path=bonusql"
+    )
+except Exception as e:
+    print(f"Error creating connection pool: {e}")
+    connection_pool = None
+
 def get_db_connection():
-    try:
-        conn = psycopg2.connect(
+    if connection_pool:
+        return connection_pool.getconn()
+    else:
+        # Fallback zur alten Verbindungsmethode
+        return psycopg2.connect(
             host="awsbase.cw6qjfqpxzus.us-east-1.rds.amazonaws.com",
             database="postgres",
             user="postgres",
@@ -19,11 +39,15 @@ def get_db_connection():
             sslmode="require",
             options="-c search_path=bonusql"
         )
-        print("Database connection successful")
-        return conn
-    except Exception as e:
-        print(f"Database connection error: {str(e)}")
-        raise
+
+def return_db_connection(conn):
+    if connection_pool and conn:
+        connection_pool.putconn(conn)
+
+# Füge eine Funktion zum Schließen des Pools hinzu
+def close_pool():
+    if connection_pool:
+        connection_pool.closeall()
 
 @route('/')
 def home():
@@ -77,7 +101,7 @@ def get_all_media():
             })
 
         cur.close()
-        conn.close()
+        return_db_connection(conn)
         
         return json.dumps({'results': formatted_results})
     except Exception as e:
@@ -205,7 +229,7 @@ def get_lending_stats():
         if cur:
             cur.close()
         if conn:
-            conn.close()
+            return_db_connection(conn)
 
 @route('/api/location_overview', method=['GET'])
 def get_location_overview():
@@ -252,7 +276,7 @@ def get_location_overview():
             })
         
         cur.close()
-        conn.close()
+        return_db_connection(conn)
         
         response.content_type = 'application/json'
         return json.dumps({'locations': locations}, default=str)
@@ -321,7 +345,7 @@ def execute_sql():
             return json.dumps({'error': f"Datenbankfehler: {str(db_err)}"})
         finally:
             cur.close()
-            conn.close()
+            return_db_connection(conn)
             
     except Exception as e:
         print(f"SQL execution error: {str(e)}")
@@ -334,4 +358,7 @@ def serve_static(filepath):
 
 if __name__ == '__main__':
     print("Starting server...")
-    run(host='0.0.0.0', port=8080, debug=True)
+    try:
+        run(host='localhost', port=8080, debug=True)
+    finally:
+        close_pool()
