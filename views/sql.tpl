@@ -28,6 +28,9 @@
                  <a class="nav-link" href="/dashboard">
                     <i class="bi bi-graph-up me-1"></i>Dashboard
                 </a>
+               <a class="nav-link" href="/locations">
+                    <i class="bi bi-graph-up me-1"></i>Dashboard
+                </a>
             </div>
         </div>
     </nav>
