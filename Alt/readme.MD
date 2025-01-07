@@ -1,58 +1,74 @@
-# Medienverwaltung
-
-## Grundstruktur
-
-Das System verwendet einen ENUM-Typ für die Unterscheidung der Medien:
-```sql
-CREATE TYPE medientyp AS ENUM ('Buch', 'CD', 'DVD', 'Noten', 'Sonstiges');
-```
-
-Die Basisstruktur für alle Medien:
-```sql
-medium(medium_id, medientyp, titel, erscheinungsjahr, datentraeger, zustand)
-```
-
 ## Bücher
-```sql
-buch(medium_id, isbn, seiten, sprache, udk, serie, band_nr, verlag_id)
-autor(person_id, rolle)
-book_authors(book_id, author_id)
+
+
+```
+Buch(Buch_ID, AuthorID, Genre, Release_Date, Length, Publisher, Type)
+Author(AuthorID, Name, Birthdate, Country)
+Verlag(PublisherID, Name, Country)
+Sammelband(Buch_ID, Title)
+```
+## CD
+
+```
+CD(CD_ID, ArtistID, TrackID, Genre, Release_Date, Length, Label, Type)
+```
+```
+CD_Artist(ArtistID, Name, Birthdate, Country)
+```
+```
+Track(TrackID, Title, Length, Genre)
+```
+```
+CD_Track(CD_ID, TrackID)
 ```
 
-## Musik
-```sql
-musikwerk(werk_id, titel, komponist_id, katalognummer, verlag_id)
-werksatz(satz_id, werk_id, satznummer, bezeichnung, tempoangabe)
-tontraeger(medium_id, label)
-track(track_id, medium_id, werk_id, satz_id, interpret_id)
-```
 
-## Film
-```sql
-film(medium_id, regisseur_id, imdb_id, laenge)
-```
+## DVD
+
+
+
+
 
 ## Medienlokalisierung 
-Die Standortverwaltung erfolgt über ein hierarchisches System von Räumen und Regalen:
+In der Sammlung werden die Entitäten klassisch in Regalen aufbewahrt. Um ein Medium in diesem System zu finden,
+existiert die Relation _Regal_ und _Reihe_. Bei der Implementierung dieses Systems wurde ich mit der Herausforderung
+konfrontiert, dass verschiedene Medien den gleichen Primary Key haben können und daher in einer gemeinsamen Tabelle nicht
+eindeutig unterscheidbar wären. Um dies zu umgehen habe ich einen Type_Identifier eingeführt, welcher jeder Entität einen
+Medientypen zuweist. Durch dieses Attribut kann ich meine Medien nicht nur global eindeutig unterscheiden, sondern auch 
+spezifisch nach einzelnen Medientypen suchen. Aus diesem Grund ist auch ein gemeinsamer Primärschlüssel aus _ItemID_ und
+_ItemType_ notwendig.
 
-```sql
-raum(raum_id, bezeichnung)
-regal(regal_id, raum_id, bezeichnung)
-standort(medium_id, medientyp, regal_id, ebene, position)
+An dieser Stelle eignet sich auch der Verweis auf den Aufgabenabschnitt 2, welcher sich mit der Frage der Unterscheidung
+einzelner Entitäten befasst. Diese wird durch die Type_Identifier sichergestellt, da eine eindeutige Zuordnung der Entitäten
+zwischen den verschiedenen Entiäten ermölglicht. An dieser Stelle erscheint es sicherlich nicht fern, in die Item_ID der
+einzelnen Entitäten den Typ einzupflegen. Diese Lösung wäre zwar durchaus valide, allerdings gehen uns dadurch Funktionen
+verloren, da wir die ID als Varchar behandeln müssen, während wir ohne den Type_Identifier arithmetische Methoden auf die 
+IDs anwenden können.
+
+
+```
+CREATE TYPE item AS ENUM ('B', 'C', 'D','O');
+```
+```
+Regal(Regal_ID, Room)
+```
+```
+Items(Item_ID, Item_Type, Regal_ID)
 ```
 
-Die Medien werden über die Kombination aus medium_id und medientyp eindeutig identifiziert. Dies ermöglicht eine flexible Verwaltung verschiedener Medientypen bei gleichzeitiger Sicherstellung der Datenintegrität.
 
-## Ausleihe
-```sql
-person_extern(person_id, vorname, nachname, telefon)
-ausleihe(ausleihe_id, medium_id, medientyp, person_id, ausleih_datum, rueckgabe_datum)
+## Ausleihen
+
+```
+Ausleihen(Ausleih_ID, Item_ID, Item_Type, User_ID, Start_Date, End_Date)
 ```
 
-Wichtige Views für häufige Abfragen:
-```sql
-aktive_ausleihen - Zeigt alle aktuell ausgeliehenen Medien
-medien_standort - Gibt den physischen Standort aller Medien aus
-```
 
-Die Implementierung nutzt PostgreSQL mit entsprechenden Constraints und Indizes für optimale Performance und Datenintegrität.
+## Python Schnittstelle
+
+Zugriff auf die Dtenbank erfolgt mit psycopg2
+Funktionen um die Datenbank zu manipulieren
+addReihe()
+addRegal()
+
+
