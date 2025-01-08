@@ -16,17 +16,17 @@
                 <i class="bi bi-collection-play me-2"></i>
                 Medien Verwaltung
             </a>
-            <div class="navbar-nav">
-                <a class="nav-link" href="/">
+                      <div class="navbar-nav">
+                <a class="nav-link" href="/" data-nav-link>
                     <i class="bi bi-house-door me-1"></i>Home
                 </a>
-                <a class="nav-link" href="/sql">
+                <a class="nav-link" href="/sql" data-nav-link>
                     <i class="bi bi-code-square me-1"></i>SQL
                 </a>
-                <a class="nav-link active" href="/dashboard">
+                <a class="nav-link active" href="/dashboard" data-nav-link>
                     <i class="bi bi-graph-up me-1"></i>Dashboard
                 </a>
-                <a class="nav-link" href="/locations">
+                <a class="nav-link" href="/locations" data-nav-link>
                     <i class="bi bi-geo-alt me-1"></i>Standorte
                 </a>
             </div>
