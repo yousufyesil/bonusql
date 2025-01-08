@@ -29,7 +29,7 @@
                     <i class="bi bi-graph-up me-1"></i>Dashboard
                 </a>
                <a class="nav-link" href="/locations">
-                    <i class="bi bi-graph-up me-1"></i>Dashboard
+                    <i class="bi bi-graph-up me-1"></i>Locations
                 </a>
             </div>
         </div>
