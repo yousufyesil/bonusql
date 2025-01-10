@@ -1,5 +1,4 @@
-# Bonusaufgabe – Projektdokumentation (angepasst an **general.sql**)
-
+# Bonusaufgabe – Projektdokumentation
 ## 1. Einleitung
 
 In dieser Dokumentation wird eine **Datenbank** für eine Medien-Sammlung vorgestellt, die aus Büchern, CDs, DVDs, Noten etc. besteht. Das konkrete **Schema** liegt in der Datei `general.sql`. Dabei wurden bereits viele Entitäten und Beziehungen realisiert:
