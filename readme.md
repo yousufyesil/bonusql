@@ -131,3 +131,36 @@ Alle Medien (Bücher, CDs, DVDs, Noten, Sonstiges) teilen sich die **Spalten**:
      AND ro.role_name = 'Autor'
      AND p.nachname ILIKE '%Poe%'
    ORDER BY m.medium_id;
+
+# Datenbanken
+
+## BonuSQL Infrastructure\
+\
+http://102.d
+## Theoretische Fragen
+*Macht es Sinn die Bücher in einer einzigen Tabelle zu speichern? Ein Datensatz würde dann doch genau einem Buch entsprechen, das ist doch super, oder?*  
+<br>Eine essenzielle Eigenschaft beim Design einer Datenbank stellt die Datenintegrität dar. Sie sorgt dafür, dass Informationen konsistent und ohne Konflikte gespeichert werden. Daher ist es sinnvoll, dass gleichwertige Objekte mit den gleichen Tupeln in einer gemeinsamen Relation repräsentiert. Allerdings kann es auch Ausnahmen geben wie zum Beispiel Sammelbänder, welcher sich in bestimmten Eigenschaften von anderen Büchern zu stark abheben, wodurch eine Sicherung in einer eigenen Relation durchaus denkbar wäre. Allerdings erhöht sich dadurch auch unter Umständen Größe des Datenbanksystems, weshalb in Einzelfällen immer eine Kosten-Nutzen Abwägung nötig ist.
+
+*‌Es gibt weitere Sachen, die aufbewahrt werden, dazugehören u.a. CDs,DVDs,Musiknoten. Es macht wohl Sinn die Gegenstände irgendwie zu unterscheiden. Zum Beispiel, ginge es anhand von einem Präfix im Primärschlüssel: Bücher werden B12345,CDs C12345 und etwa Noten N12345 nummeriert. Diskutieren Sie, inwieweit eine solche Lösung angebracht ist! Benennen Sie bessere Alternativen(und setzen Sie eins davon um)!*
+<br><br>Eine eindeutige Unterscheidung der einzelnen Entitäten erfolgt bereits durch eigene Relationen, in welchen Sie über einen Index  als Primärschlüssel eindeutig zugeordnet werden können. Durch eine Zuordnung über Buchstabenpräfixe könnten diverse Nachteile entstehen, da uns die Vorteile des Datentyp Int verloren gehen könnten. Spätestens in der Implementierung der Datenbank könnte dies zu Problemen führen. Darüber hinaus müsste der Primärschlüssel jedes mal beim erstellen eines Datensatzes angegeben werden, wodurch auf der Anwendungsebene jedes mal überprüft werden müsste ob ein Schlüssel bereits existiert und einen entsprechenden Präfix vor die Nummer setzen würde. Eine angemessene Methode diese zu Unterscheiden kann allerdings unter Zuhilfenahme von Types erfolgen, so das sin einer Tabelle aus verschiedenen Medien anhand eines Types gefiltert werden kann, um was für eine Art Medium es sich handelt. Diese Lösung bietet uns insgesamt eine Verwaltung von Daten, welche unabhängiger vom Primärschlüssel ist, besser skalierter ist und gleichzeitig fähig ist verschiedene Medien klar trennen kann. An dieser Stelle ist allerdings zu erwähnen, dass eine Identifikation durch einen Präfix durchaus ein legitimes Mittel sein kann, um verschiedene Arten von Medien darzustellen.
+
+
+*‌ Es gibt mehrere Schritte zwischen den ursprünglichen Design bzw. E/R-Modellierung und der finalen Umsetzung. Mitunter muss man die Relvars auf höhere und höhere Normalformen normalisieren. Welche Normalform verwenden Sie letztendlich und wieso? Welche Vorteile sind damit verbunden?*<br><br>
+Während des Designs wär es stetig Ziel einen konsistenten Aufbau  der Relationen umzusetzen. Daher habe ich mich für eine Umsetzung in der dritten Normalform entschieden. Dies hat den Vorteil, dass Anomalien effektiv vorgebeugt werden können. Außerdem können Beziehungen zwischen Entitäten besser dargestellt werden und wodurch auch die Lesbarkeit profitiert und das System als gesamtes wartungsfreundlicher macht. Eine höhere Normalform wäre allerdings durchaus möglich gewesen, hierauf wurde allerdings verzichtet, da eine höhere Normalform auch die Folge hat, dass mehr Joins nötig sind um Informationen abrufen zu können. 
+
+*Wie soll ein Design hier aussehen? Macht es Sinn, folgenden Ansatz zu wählen? Alle Ausleihen (Primärschlüssel, Fremdschlüssel für Person, Fremdschlüssel für Gegenstand, Datum des Anfangs, Datum des Endes) in einer Tabelle zu haben; aktive Ausleihen würden sich von den beendeten nur anhand von noch nicht eingetragener (NULL!) Ende der Leihe unterscheiden. Was ist hier falsch? Wie ginge es besser?*<br><br>
+
+Eine Unterscheidung zwischen aktiven Ausleihen und beendete Ausleihen sollte selbst bei seltener Benutzung vorgenommen werden, da es die Lesbarkeit fördert. Darüber hinaus sollten in einer Relation möglichst gleichwertige Daten stehen, daher ergibt eine Trennung durchaus Sinn. Umsetzen könnte man dies durch Transaktionen, bei welchen bei einer Beendigung einer Ausleihe, der Eintrag automatisch einer Relation für abgeschlossene Ausleihen zugeordnet wird. Insbesondere wenn man ein Frontend anbinden möchte sollte hier klar unterschieden werden um eine Anbindung effizienter zu ermöglichen.
+
+*‌ Angenommen, ich will alle Gegenstände katalogisieren und mit einem Barcode versehen. Verleih würde dann wie in der alten Bibliothek funktionieren, mit dem Scannen von Code. Wichtiger wäre aber wohl, dass man durch Scannen vom Code den ursprünglichen Standort vom Gegenstand herausfinden könnte. Gibt es irgendwelche Einschränkungen, die Ihr Design in diesem Kontext hergibt?*
+
+Technisch ist dies durch ein Barcode-Attribut in einer Tabelle aller Medien möglich. Allerdings könnte die Vergabe der Barcodes Probleme machen, wenn diese auf ISBNs basieren sollen, da ältere Bücher i.d.R über keinen Barcode verfügen und hierbei intern ein Barcode ausgestellt werden muss. Diese Bücher müsste man für einen visuellen Scan allerdings auch mit mindestens einem Sticker versehen, was für ältere Sammlerstücke durchaus schade wäre und im schlimmsten Fall das Buch sogar beschädigen könnte. 
+
+## Praktische Anbindung 
+### Cloud Infrastruktur
+
+Die Anbindung an ein Frontend erfolgt über eine Python Anwendung, in welcher die Datenbank mit psycopg2 angebunden werden kann. Um einen Zugriff auf die Datenbank von außerhalb zu ermöglichen, wird die Datenbank bei AWS auf der t3-Instanz gehostet. Unter Verwendung einer EC2 Instanz der Größe t3.nano kann eine Infrastruktur aufgebaut werden, in welcher durch eine Auto-Scaling Group und einem Loadbalancer die Performance des Systems sich an die Anforderungen anpassen kann. Die Speicherung der Buchumschläge könnte zudem in einem S3-Bucket erfolgen, welcher dann durch einen Referenz der Entität abgerufen werden könnte. 
+
+
+
+   
