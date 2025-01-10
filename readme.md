@@ -135,7 +135,7 @@ Alle Medien (Bücher, CDs, DVDs, Noten, Sonstiges) teilen sich die **Spalten**:
 
 ## BonuSQL Infrastructure\
 \
-http://102.d
+http://bonusql.havelit.tech:8080
 ## Theoretische Fragen
 *Macht es Sinn die Bücher in einer einzigen Tabelle zu speichern? Ein Datensatz würde dann doch genau einem Buch entsprechen, das ist doch super, oder?*  
 <br>Eine essenzielle Eigenschaft beim Design einer Datenbank stellt die Datenintegrität dar. Sie sorgt dafür, dass Informationen konsistent und ohne Konflikte gespeichert werden. Daher ist es sinnvoll, dass gleichwertige Objekte mit den gleichen Tupeln in einer gemeinsamen Relation repräsentiert. Allerdings kann es auch Ausnahmen geben wie zum Beispiel Sammelbänder, welcher sich in bestimmten Eigenschaften von anderen Büchern zu stark abheben, wodurch eine Sicherung in einer eigenen Relation durchaus denkbar wäre. Allerdings erhöht sich dadurch auch unter Umständen Größe des Datenbanksystems, weshalb in Einzelfällen immer eine Kosten-Nutzen Abwägung nötig ist.
